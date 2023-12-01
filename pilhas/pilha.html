@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout com Bootstrap 5 e jQuery</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="../img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css">
+    <style>
+        *{
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+        }
+
+        .icon{
+            font-size: 20px;
+        }
+
+        .face {color: #1877F2;}
+
+        .red{color: #FF5700}
+
+        .insta{color: #F56040;}
+
+        .git{color: blue}
+
+        /* body { 
+            background-color: #fdfdfd;
+        } */
+
+        p { text-align: justify; }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px; /* Ajuste o valor conforme necessário */
+        }
+
+        footer { position:static; }
+
+        h5, h4 { font-weight: bold; }
+
+        pre, code {
+            padding:0px !important;
+            margin:0px !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg border bg-light">
+        <div class="container">
+            <div class="col-3 d-flex justify-content-start">
+                <img src="../img/logo.png" alt="Logo" width="110" height="60">
+            </div>
+            <div class="col-6 text-center">
+                <h5>StackLearn</h5>
+            </div>
+            <div class="col-3 text-end">
+                <i class="fa fa-user m-1"></i> Logar ou <a href="#">Cadastre-se</a>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="mt-4">
+        <div class="container w-75 bg-white rounded">
+           <h4 class="text-center">Pilhas</h4>
+           <hr>
+           <p>
+                Uma pilha é uma estrutura de dados linear que segue o princípio "último a entrar, primeiro a sair" (LIFO - Last In, First Out). Isso significa que  o último elemento adicionado à pilha é o primeiro a ser removido. As operações básicas em uma pilha são a inserção de elementos (push) e a remoção   de elementos (pop) na parte superior da pilha. Vou explicar o funcionamento de uma pilha e fornecer exemplos em C, além de discutir como ela é    implementada nos bastidores.
+           </p>
+           <h5>
+                Funcionamento de uma Pilha
+           </h5>
+           <p>
+                Uma pilha pode ser comparada a uma pilha de pratos em que você adiciona ou remove pratos na parte superior da pilha. Aqui estão as operações            principais:
+                <ul>
+                    <li>
+                        <b>Push (Inserção)</b>: Adicionar um elemento à pilha. O novo elemento se torna o topo da pilha.
+                    </li>
+                    <li>
+                        <b>Pop (Remoção)</b>: Remover o elemento do topo da pilha. O elemento é retirado da pilha.
+                    </li>
+                </ul>
+            </p>
+           <h5>Implementação de uma Pilha em C:</h5>
+           <small>Em C, a implementação de uma pilha pode ser usando um array ou uma lista encadeada.</small>
+           <pre style="margin: 0; padding: 0px; background-color: #f0f0f0;">
+                <code class="language-c">
+                    #include <stdio.h>
+                        #include <stdlib.h>
+                        
+                        #define MAX_SIZE 100 // Tamanho máximo da pilha
+                        
+                        struct Stack {
+                            int items[MAX_SIZE];
+                            int top;
+                        };
+                        
+                        // Função para inicializar a pilha
+                        void initialize(struct Stack *stack) {
+                            stack->top = -1;
+                        }
+                        
+                        // Função para verificar se a pilha está vazia
+                        int isEmpty(struct Stack *stack) {
+                            return stack->top == -1;
+                        }
+                        
+                        // Função para verificar se a pilha está cheia
+                        int isFull(struct Stack *stack) {
+                            return stack->top == MAX_SIZE - 1;
+                        }
+                        
+                        // Função para adicionar um elemento à pilha (push)
+                        void push(struct Stack *stack, int item) {
+                            if (isFull(stack)) {
+                                printf("Erro: Pilha cheia.\n");
+                                return;
+                            }
+                            stack->items[++stack->top] = item;
+                        }
+                        
+                        // Função para remover um elemento da pilha (pop)
+                        int pop(struct Stack *stack) {
+                            if (isEmpty(stack)) {
+                                printf("Erro: Pilha vazia.\n");
+                                return -1;
+                            }
+                            return stack->items[stack->top--];
+                        }
+                        
+                        int main() {
+                            struct Stack stack;
+                            initialize(&stack);
+                        
+                            push(&stack, 1);
+                            push(&stack, 2);
+                            push(&stack, 3);
+                        
+                            printf("Elementos removidos da pilha: %d, %d\n", pop(&stack), pop(&stack));
+                        
+                            return 0;
+                        }                                           
+                </code>
+           </pre>
+           <h5 class="mt-3">Funcionamento por Trás da Linguagem:</h5>
+            <p>
+                Nos bastidores, uma pilha implementada usando um array mantém um índice (denominado top neste exemplo) que aponta para o topo da pilha. Quando você insere um elemento, ele é adicionado à posição indicada por top, e top é incrementado. Quando você remove um elemento, o elemento na posição top é removido, e top é decrementado.
+            </p>
+            <p>
+                A verificação de pilha vazia (isEmpty) é feita verificando se top é igual a -1, indicando que a pilha não contém elementos. A verificação de pilha cheia (isFull) é feita verificando se top é igual ao tamanho máximo da pilha menos 1.
+            </p>
+            <p>
+                A implementação de pilha usando lista encadeada segue um princípio semelhante, mas em vez de usar um array, os nós são encadeados uns aos outros, e o topo da pilha é representado pelo primeiro nó.
+            </p>
+            <p>
+                Em resumo, uma pilha é uma estrutura de dados que segue o princípio LIFO, com operações de push (inserção) e pop (remoção). É amplamente usada para rastrear informações temporárias em programas e tem aplicações em algoritmos como a recursão e o rastreamento de estados em processos.
+            </p>
+           <div class="row justify-content-center mb-3">
+                <div class="col-4">
+                    <button type="button" class="btn btn-secondary" onclick="location.href='../lista_encadeada/simples.html'">Voltar</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='../filas/fila.html'">Próximo</button>
+                </div>
+           </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light p-3">
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-4">
+                    2023&copy; StackLearn - Todos direitos reservados
+                </div>
+                <div class="col-6"></div>
+                <div class="col-2 d-flex justify-content-around">
+                    <div>
+                        <i class="fa fa-facebook-official icon face" aria-hidden="true" title="Facebook"></i>
+                    </div>
+                    <div>
+                        <i class="fa fa-instagram icon insta" aria-hidden="true" title="Instagram"></i>
+                    </div>
+                    <div>
+                        <i class="fa fa-reddit-square icon red" aria-hidden="true" title="Reddit"></i>
+                    </div>
+                    <div>
+                        <i class="fa fa-github icon git" aria-hidden="true" title="GitHub"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-c.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("code[class^='language-']").each(function(){
+                $(this).html($(this).html().trim());
+            });
+
+            Prism.highlightAll();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout com Bootstrap 5 e jQuery</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="../img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css">
+    <style>
+        *{
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+        }
+
+        .icon{
+            font-size: 20px;
+        }
+
+        .face {color: #1877F2;}
+
+        .red{color: #FF5700}
+
+        .insta{color: #F56040;}
+
+        .git{color: blue}
+
+        /* body { 
+            background-color: #fdfdfd;
+        } */
+
+        p { text-align: justify; }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px; /* Ajuste o valor conforme necessário */
+        }
+
+        footer { position:static; }
+
+        h5, h4 { font-weight: bold; }
+
+        pre, code {
+            padding:0px !important;
+            margin:0px !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg border bg-light">
+        <div class="container">
+            <div class="col-3 d-flex justify-content-start">
+                <img src="../img/logo.png" alt="Logo" width="110" height="60">
+            </div>
+            <div class="col-6 text-center">
+                <h5>StackLearn</h5>
+            </div>
+            <div class="col-3 text-end">
+                <i class="fa fa-user m-1"></i> Logar ou <a href="#">Cadastre-se</a>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="mt-4">
+        <div class="container w-75 bg-white rounded">
+           <h4 class="text-center">Filas</h4>
+           <hr>
+           <p>
+                <ul>
+                    <li>
+                       <b>Enqueue (Inserção)</b>: Adicionar um elemento à fila. O novo elemento é inserido na parte de trás (ou final) da fila.
+                    </li>
+                    <li>
+                        <b>Dequeue (Remoção)</b>: Remover o elemento da frente da fila. O elemento é retirado da fila na ordem em que foi adicionado.
+                    </li>
+                </ul>
+            </p>
+           <h5>Implementação de uma Fila em C</h5>
+           <small>Em C, a fila pode ser implementada usando um array ou uma lista encadeada.</small>
+           <pre style="margin: 0; padding: 0px; background-color: #f0f0f0;">
+                <code class="language-c">
+                    #include <stdio.h>
+                    #include <stdlib.h>
+                    
+                    #define MAX_SIZE 100 // Tamanho máximo da fila
+                    
+                    struct Queue {
+                        int items[MAX_SIZE];
+                        int front;
+                        int rear;
+                    };
+                    
+                    // Função para inicializar a fila
+                    void initialize(struct Queue *queue) {
+                        queue->front = -1;
+                        queue->rear = -1;
+                    }
+                    
+                    // Função para verificar se a fila está vazia
+                    int isEmpty(struct Queue *queue) {
+                        return (queue->front == -1 && queue->rear == -1);
+                    }
+                    
+                    // Função para verificar se a fila está cheia
+                    int isFull(struct Queue *queue) {
+                        return (queue->rear == MAX_SIZE - 1);
+                    }
+                    
+                    // Função para adicionar um elemento à fila (enqueue)
+                    void enqueue(struct Queue *queue, int item) {
+                        if (isFull(queue)) {
+                            printf("Erro: Fila cheia.\n");
+                            return;
+                        }
+                        if (isEmpty(queue)) {
+                            queue->front = queue->rear = 0;
+                        } else {
+                            queue->rear++;
+                        }
+                        queue->items[queue->rear] = item;
+                    }
+                    
+                    // Função para remover um elemento da fila (dequeue)
+                    int dequeue(struct Queue *queue) {
+                        if (isEmpty(queue)) {
+                            printf("Erro: Fila vazia.\n");
+                            return -1;
+                        }
+                        int item = queue->items[queue->front];
+                        if (queue->front == queue->rear) {
+                            queue->front = queue->rear = -1;
+                        } else {
+                            queue->front++;
+                        }
+                        return item;
+                    }
+                    
+                    int main() {
+                        struct Queue queue;
+                        initialize(&queue);
+                    
+                        enqueue(&queue, 1);
+                        enqueue(&queue, 2);
+                        enqueue(&queue, 3);
+                    
+                        printf("Elementos removidos da fila: %d, %d\n", dequeue(&queue), dequeue(&queue));
+                    
+                        return 0;
+                    }
+                                                               
+                </code>
+           </pre>
+           <h5 class="mt-3">Funcionamento por Trás da Linguagem:</h5>
+            <p>
+                Nos bastidores, uma fila implementada usando um array mantém dois índices, front e rear, que indicam a posição do elemento da frente e do elemento de trás da fila, respectivamente. Quando você insere um elemento, ele é adicionado à posição indicada por rear, e rear é incrementado. Quando você remove um elemento, o elemento na posição front é removido, e front é incrementado.
+            </p>
+            <p>
+                A verificação de fila vazia (isEmpty) é feita verificando se front e rear são iguais a -1, indicando que a fila não contém elementos. A verificação de fila cheia (isFull) é feita verificando se rear é igual ao tamanho máximo da fila menos 1.
+            </p>
+            <p>
+                A implementação de fila usando lista encadeada segue um princípio semelhante, mas em vez de usar um array, os nós são encadeados uns aos outros, e front e rear são ponteiros que apontam para o primeiro e último nó da fila, respectivamente.
+            </p>
+            <p>
+                Em resumo, uma fila é uma estrutura de dados que segue o princípio FIFO, com operações de enqueue (inserção) e dequeue (remoção). Ela é amplamente usada em programação para rastrear elementos em uma ordem específica, como em sistemas de gerenciamento de tarefas, impressão de documentos e muito mais.
+            </p>
+           <div class="row justify-content-center mb-3">
+                <div class="col-4">
+                    <button type="button" class="btn btn-secondary" onclick="location.href='../index.html'">Voltar</button>
+                </div>
+           </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light p-3">
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-4">
+                    2023&copy; StackLearn - Todos direitos reservados
+                </div>
+                <div class="col-6"></div>
+                <div class="col-2 d-flex justify-content-around">
+                    <div>
+                        <i class="fa fa-facebook-official icon face" aria-hidden="true" title="Facebook"></i>
+                    </div>
+                    <div>
+                        <i class="fa fa-instagram icon insta" aria-hidden="true" title="Instagram"></i>
+                    </div>
+                    <div>
+                        <i class="fa fa-reddit-square icon red" aria-hidden="true" title="Reddit"></i>
+                    </div>
+                    <div>
+                        <i class="fa fa-github icon git" aria-hidden="true" title="GitHub"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-c.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("code[class^='language-']").each(function(){
+                $(this).html($(this).html().trim());
+            });
+
+            Prism.highlightAll();
+        });
+    </script>
+</body>
+</html>
